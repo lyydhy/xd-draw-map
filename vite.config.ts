@@ -1,6 +1,9 @@
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+
+import path from "path"
+const entryDir = path.resolve(__dirname, 'packages');
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue(),
@@ -23,7 +26,7 @@ export default defineConfig({
         minify: true,
         rollupOptions: {
             external: ['vue'],
-            input: ['src/components/index.js'],
+            // input: [path.resolve(entryDir,'index.ts')],
             output: [
                 {
                     format: 'es',
@@ -48,7 +51,7 @@ export default defineConfig({
 
         },
         lib: {
-            entry: "./src/components/index.ts",
+            entry: path.resolve(entryDir,'index.ts'),
             formats: ['es', 'cjs']
         }
     }

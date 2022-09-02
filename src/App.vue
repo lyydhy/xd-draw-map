@@ -8,7 +8,7 @@
 </template>
 <script setup lang="ts">
 import {ref} from 'vue'
-import DrawMapPoint from "./components/drawMapPoint";
+import DrawMapPoint from "../packages/drawMapPoint";
 let mapRef = ref(null)
 
 function getData() {

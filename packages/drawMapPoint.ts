@@ -1,5 +1,5 @@
 import {defineComponent, h,watch, onBeforeUnmount, onMounted, ref, toRefs,PropType} from "vue-demi";
-import initMap, {drawOptions, flyTo} from "./utils.js";
+import initMap, {drawOptions, flyTo} from "./utils";
 import {DrawEvent, DrawPoint, PointDrawer,DeepPartial} from "@antv/l7-draw";
 import {Scene, IMapWrapper} from '@antv/l7'
 export default defineComponent({

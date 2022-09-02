@@ -1,5 +1,5 @@
 import { PropType } from "vue-demi";
-import { drawOptions } from "./utils.js";
+import { drawOptions } from "./utils";
 declare const _default: import("vue-demi").DefineComponent<{
     center: {
         type: PropType<[number, number]>;
