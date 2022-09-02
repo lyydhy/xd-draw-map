@@ -1,9 +1,9 @@
-import t from "./drawMapPoint.js";
-const n = {
-  install(o) {
-    o.component("DrawMapPoint", t);
+import drawMapPoint from "./drawMapPoint.js";
+const index = {
+  install(vue) {
+    vue.component("DrawMapPoint", drawMapPoint);
   }
 };
 export {
-  n as default
+  index as default
 };

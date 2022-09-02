@@ -1,8 +1,8 @@
-import { defineComponent as y, toRefs as w, ref as d, onMounted as M, onBeforeUnmount as z, watch as D, h as f } from "vue";
-import P, { flyTo as b } from "./utils.js";
+import { defineComponent, toRefs, ref, onMounted, onBeforeUnmount, watch, h } from "vue";
+import initMap, { flyTo } from "./utils.js";
 import "../node_modules/@antv/l7-draw/dist/l7-draw.js";
-import { l as p } from "../_virtual/l7-draw.js";
-const C = y({
+import { l as l7Draw } from "../_virtual/l7-draw.js";
+const drawMapPoint = defineComponent({
   name: "drawMapPoint",
   props: {
     center: {
@@ -19,28 +19,39 @@ const C = y({
     },
     isMulti: {
       type: Boolean,
-      default: !1
+      default: false
     },
     option: {
       type: Object,
-      default: () => ({})
+      default: () => {
+        return {};
+      }
     }
   },
   emits: ["change"],
-  setup(v, u) {
-    let e = w(v), s = d(null), a, l = d([]), o;
-    M(() => {
-      P(s.value, {
-        ...e.option.value,
-        zoom: e.zoom.value,
-        center: e.center.value
-      }).then((n) => {
-        a = n, a.addImage(
+  setup(prop, ctx) {
+    let props = toRefs(prop);
+    let mapRef = ref(null);
+    let scene;
+    let lngAndLat = ref([]);
+    let drawPoint;
+    onMounted(() => {
+      initMap(mapRef.value, {
+        ...props.option.value,
+        zoom: props.zoom.value,
+        center: props.center.value
+      }).then((v) => {
+        scene = v;
+        scene.addImage(
           "location",
           "http://img.xd.sidwit.com/picture-bed/map/location.png"
-        ), e.point.value && e.point.value.length > 0 && b(a.map, e.point.value[0], 15), o = new p.exports.DrawPoint(a, {
-          initialData: m(e.point.value),
-          multiple: e.isMulti.value,
+        );
+        if (props.point.value && props.point.value.length > 0) {
+          flyTo(scene.map, props.point.value[0], 15);
+        }
+        drawPoint = new l7Draw.exports.DrawPoint(scene, {
+          initialData: getFeaturesByPoint(props.point.value),
+          multiple: props.isMulti.value,
           style: {
             point: {
               normal: {
@@ -57,55 +68,76 @@ const C = y({
               }
             }
           }
-        }), o.enable(), o.on(p.exports.DrawEvent.Add, (r, t) => {
-          let i = null;
-          e.isMulti.value || (e.point.value && e.point.value.length > 0 && (i = m(e.point.value)[0]), t.length > 1 && (i = t[0]), i && o.removeFeature(i));
-        }), o.on(p.exports.DrawEvent.Change, (r) => {
-          let t = r;
-          if (t && t.length > 0) {
-            let i = [];
-            t.map((h) => {
-              let g = h.geometry.coordinates;
-              i.push(g.join(","));
-            }), l.value = i;
-          } else
-            l.value = [];
+        });
+        drawPoint.enable();
+        drawPoint.on(l7Draw.exports.DrawEvent.Add, (e, es) => {
+          let point = null;
+          if (!props.isMulti.value) {
+            if (props.point.value && props.point.value.length > 0) {
+              point = getFeaturesByPoint(props.point.value)[0];
+            }
+            if (es.length > 1) {
+              point = es[0];
+            }
+            if (point) {
+              drawPoint.removeFeature(point);
+            }
+          }
+        });
+        drawPoint.on(l7Draw.exports.DrawEvent.Change, (newData) => {
+          let point = newData;
+          if (point && point.length > 0) {
+            let v2 = [];
+            point.map((r) => {
+              let coordinates = r.geometry.coordinates;
+              v2.push(coordinates.join(","));
+            });
+            lngAndLat.value = v2;
+          } else {
+            lngAndLat.value = [];
+          }
         });
       });
     });
-    function m(n = []) {
-      return !n || n.length === 0 ? null : n.map((r) => {
-        let t = r.split(",");
+    function getFeaturesByPoint(value = []) {
+      if (!value || value.length === 0)
+        return null;
+      return value.map((r) => {
+        let v = r.split(",");
         return {
           type: "Feature",
           properties: {},
           geometry: {
             type: "Point",
-            coordinates: [+t[0], +t[1]]
+            coordinates: [+v[0], +v[1]]
           }
         };
       });
     }
-    function c() {
-      return l.value;
+    function getData() {
+      return lngAndLat.value;
     }
-    return z(() => {
-      a && a.destroy(), o && o.destroy();
-    }), D(l, (n) => {
-      u.emit("change", n);
-    }), u.expose({
-      getData: c
-    }), () => f(
+    onBeforeUnmount(() => {
+      scene && scene.destroy();
+      drawPoint && drawPoint.destroy();
+    });
+    watch(lngAndLat, (val) => {
+      ctx.emit("change", val);
+    });
+    ctx.expose({
+      getData
+    });
+    return () => h(
       "div",
       {
         style: "width:100%;height:100%;position:relative;"
       },
       [
-        f(
+        h(
           "div",
           {
             class: "mapContainer",
-            ref: s,
+            ref: mapRef,
             style: "width:100%;height:100%;"
           }
         )
@@ -114,5 +146,5 @@ const C = y({
   }
 });
 export {
-  C as default
+  drawMapPoint as default
 };
