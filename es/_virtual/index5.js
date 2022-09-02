@@ -1,4 +1,4 @@
-var e = { exports: {} };
+var elementResizeEvent = { exports: {} };
 export {
-  e
+  elementResizeEvent as e
 };

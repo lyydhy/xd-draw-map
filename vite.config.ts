@@ -22,11 +22,11 @@ export default defineConfig({
     },
     build: {
         target: 'modules',
-        outDir: "es",
-        minify: true,
+        outDir: "lib",
+        minify: false,
         rollupOptions: {
             external: ['vue'],
-            // input: [path.resolve(entryDir,'index.ts')],
+            input: [path.resolve(entryDir,'index.ts')],
             output: [
                 {
                     format: 'es',
@@ -36,7 +36,7 @@ export default defineConfig({
                     preserveModules: true,
                     //配置打包根目录
                     dir: 'es',
-                    preserveModulesRoot: 'src'
+
                 },
                 {
                     format: 'cjs',
@@ -45,7 +45,7 @@ export default defineConfig({
                     preserveModules: true,
                     //配置打包根目录
                     dir: 'lib',
-                    preserveModulesRoot: 'src'
+
                 }
             ],
 

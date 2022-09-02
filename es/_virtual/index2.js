@@ -1,4 +1,4 @@
-var e = { exports: {} };
+var eventemitter3 = { exports: {} };
 export {
-  e
+  eventemitter3 as e
 };

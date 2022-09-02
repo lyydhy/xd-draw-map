@@ -1,4 +1,6 @@
-var e = {};
+import { getAugmentedNamespace } from "./_commonjsHelpers.js";
+import * as index from "../node_modules/l7eval5/dist/esm/index.js";
+const require$$0 = /* @__PURE__ */ getAugmentedNamespace(index);
 export {
-  e as __exports
+  require$$0 as default
 };

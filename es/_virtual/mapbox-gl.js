@@ -1,4 +1,4 @@
-var a = { exports: {} };
+var mapboxGl = { exports: {} };
 export {
-  a as m
+  mapboxGl as m
 };

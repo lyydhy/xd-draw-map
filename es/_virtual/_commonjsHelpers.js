@@ -1,24 +1,26 @@
-var f = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
-function u(t) {
-  var o = t.default;
-  if (typeof o == "function") {
-    var e = function() {
-      return o.apply(this, arguments);
+var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
+function getAugmentedNamespace(n) {
+  var f = n.default;
+  if (typeof f == "function") {
+    var a = function() {
+      return f.apply(this, arguments);
     };
-    e.prototype = o.prototype;
+    a.prototype = f.prototype;
   } else
-    e = {};
-  return Object.defineProperty(e, "__esModule", { value: !0 }), Object.keys(t).forEach(function(n) {
-    var r = Object.getOwnPropertyDescriptor(t, n);
-    Object.defineProperty(e, n, r.get ? r : {
-      enumerable: !0,
+    a = {};
+  Object.defineProperty(a, "__esModule", { value: true });
+  Object.keys(n).forEach(function(k) {
+    var d = Object.getOwnPropertyDescriptor(n, k);
+    Object.defineProperty(a, k, d.get ? d : {
+      enumerable: true,
       get: function() {
-        return t[n];
+        return n[k];
       }
     });
-  }), e;
+  });
+  return a;
 }
 export {
-  f as commonjsGlobal,
-  u as getAugmentedNamespace
+  commonjsGlobal,
+  getAugmentedNamespace
 };

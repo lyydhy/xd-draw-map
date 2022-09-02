@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var l7TinySdf = { exports: {} };
 export {
-  r as l
+  l7TinySdf as l
 };

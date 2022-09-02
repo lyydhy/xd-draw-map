@@ -2,10 +2,10 @@
   "name": "xd-draw-map",
   "private": true,
   "version": "0.0.1",
-  "main": "lib/components/index.js",
-  "module": "es/components/index.js",
+  "main": "lib/packages/index.js",
+  "module": "es/packages/index.js",
   "files": ["lib","es"],
-  "typings": "lib/components/index.d.ts",
+  "typings": "lib/packages/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

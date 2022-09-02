@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var regeneratorRuntime = { exports: {} };
 export {
-  r
+  regeneratorRuntime as r
 };

@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var isBuffer = { exports: {} };
 export {
-  r as i
+  isBuffer as i
 };

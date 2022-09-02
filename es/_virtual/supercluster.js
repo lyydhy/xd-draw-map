@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var supercluster = { exports: {} };
 export {
-  r as s
+  supercluster as s
 };

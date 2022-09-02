@@ -1,4 +1,4 @@
-var e = { exports: {} };
+var _cloneBuffer = { exports: {} };
 export {
-  e as _
+  _cloneBuffer as _
 };

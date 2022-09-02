@@ -1,4 +1,4 @@
-var e = { exports: {} };
+var _nodeUtil = { exports: {} };
 export {
-  e as _
+  _nodeUtil as _
 };

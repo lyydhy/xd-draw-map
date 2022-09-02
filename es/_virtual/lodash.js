@@ -1,4 +1,4 @@
-var a = { exports: {} };
+var lodash = { exports: {} };
 export {
-  a as l
+  lodash as l
 };

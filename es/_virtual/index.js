@@ -1,6 +1,6 @@
-import { getAugmentedNamespace as e } from "./_commonjsHelpers.js";
-import * as r from "../node_modules/@antv/l7/es/index.js";
-const m = /* @__PURE__ */ e(r);
+import { getAugmentedNamespace } from "./_commonjsHelpers.js";
+import * as index from "../node_modules/@antv/l7/es/index.js";
+const require$$0 = /* @__PURE__ */ getAugmentedNamespace(index);
 export {
-  m as default
+  require$$0 as default
 };

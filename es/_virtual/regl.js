@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var regl = { exports: {} };
 export {
-  r
+  regl as r
 };

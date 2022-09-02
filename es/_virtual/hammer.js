@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var hammer = { exports: {} };
 export {
-  r as h
+  hammer as h
 };

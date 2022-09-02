@@ -1,4 +1,4 @@
-var e = { exports: {} };
+var _typeof = { exports: {} };
 export {
-  e as _
+  _typeof as _
 };

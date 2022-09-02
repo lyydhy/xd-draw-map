@@ -1,4 +1,4 @@
-var e = { exports: {} };
+var earcut = { exports: {} };
 export {
-  e
+  earcut as e
 };

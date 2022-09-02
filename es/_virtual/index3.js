@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var dist = { exports: {} };
 export {
-  r as d
+  dist as d
 };
