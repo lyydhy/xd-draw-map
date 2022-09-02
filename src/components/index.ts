@@ -1,11 +1,10 @@
-import drawMapPoint from "./drawMapPoint.js";
-
+import drawMapPoint from "./drawMapPoint";
 
 
 export default {
-  // @ts-ignore
-  install(vue) {
-    vue.component('DrawMapPoint', drawMapPoint)
-  }
+    // @ts-ignore
+    install(vue) {
+        vue.component('DrawMapPoint', drawMapPoint)
+    }
 
 }

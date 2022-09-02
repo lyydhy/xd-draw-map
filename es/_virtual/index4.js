@@ -1,4 +1,4 @@
-var r = { exports: {} };
+var e = {};
 export {
-  r as l
+  e as __exports
 };
