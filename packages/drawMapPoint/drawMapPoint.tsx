@@ -1,13 +1,16 @@
-import {defineComponent, h,watch, onBeforeUnmount, onMounted, ref, toRefs,PropType} from "vue-demi";
-import initMap, {drawOptions, flyTo} from "./utils";
-import {DrawEvent, DrawPoint, PointDrawer,DeepPartial} from "@antv/l7-draw";
+import {Fragment,defineComponent, h, watch, onBeforeUnmount, onMounted, ref, toRefs, PropType} from "vue-demi";
+import initMap, {drawOptions, flyTo} from "../utils";
+import {DrawEvent, DrawPoint, PointDrawer, DeepPartial} from "@antv/l7-draw";
 import {Scene, IMapWrapper} from '@antv/l7'
+import SearchLocation from '../components/searchLocation/searchLocation'
+const React = { createElement: h, Fragment: Fragment }
 export default defineComponent({
     name: 'drawMapPoint',
+    components: {SearchLocation},
     props: {
         // 中心点
         center: {
-            type: Object as PropType<[number,number]>,
+            type: [] as PropType<[number, number]>,
             default: () => []
         },
         // zoom
@@ -34,12 +37,12 @@ export default defineComponent({
         }
     },
     emits: ['change'],
-    setup(prop,ctx) {
+    setup(prop, ctx) {
         let props = toRefs(prop)
         let mapRef = ref(null)
-        let scene:Scene
+        let scene: Scene
         let lngAndLat = ref([] as string[])
-        let drawPoint:PointDrawer
+        let drawPoint: PointDrawer
 
         onMounted(() => {
             initMap(mapRef.value, {
@@ -100,8 +103,8 @@ export default defineComponent({
                 drawPoint.on(DrawEvent.Change, (newData) => {
                     let point = newData
                     if (point && point.length > 0) {
-                        let v:string[] = []
-                        point.map((r:any) => {
+                        let v: string[] = []
+                        point.map((r: any) => {
                             let coordinates = r.geometry.coordinates
                             v.push(coordinates.join(","))
                         })
@@ -115,7 +118,7 @@ export default defineComponent({
         })
 
         // 获取初始化数据
-        function getFeaturesByPoint(value:string[] = []) {
+        function getFeaturesByPoint(value: string[] = []) {
             if (!value || value.length === 0) return null
             return value.map(r => {
                 let v = r.split(',')
@@ -131,7 +134,7 @@ export default defineComponent({
         }
 
         // 获取数据
-        function getData():string[] {
+        function getData(): string[] {
             return lngAndLat.value
         }
 
@@ -145,29 +148,37 @@ export default defineComponent({
 
         // 监听值的变化 进行emit
         watch(lngAndLat, (val) => {
-            ctx.emit('change',val)
+            ctx.emit('change', val)
         })
         // 把getData方法 透露出去
         ctx.expose({
             getData
         })
+        return () => <div style="width:100%;height:100%;position:relative;">
+            <SearchLocation></SearchLocation>
+            <div class="mapContainer" ref={mapRef} style="width:100%;height:100%;"></div>
+        </div>
 
-        return () => h(
-            'div',
-            {
-                style: "width:100%;height:100%;position:relative;"
-            },
-            [
-                h(
-                    'div',
-                    {
-                        class: 'mapContainer',
-                        ref: mapRef,
-                        style: "width:100%;height:100%;"
-                    }
-                )
-            ]
-        )
+        // return () => h(
+        //     'div',
+        //     {
+        //         style: "width:100%;height:100%;position:relative;"
+        //     },
+        //
+        //     [
+        //         h('search-location', {
+        //             class: 'search-location',
+        //         }),
+        //         h(
+        //             'div',
+        //             {
+        //                 class: 'mapContainer',
+        //                 ref: mapRef,
+        //                 style: "width:100%;height:100%;"
+        //             }
+        //         )
+        //     ]
+        // )
     },
 
 })

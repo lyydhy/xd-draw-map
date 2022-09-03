@@ -1,18 +1,20 @@
-import {RasterLayer, Scene} from "@antv/l7";
-import {Mapbox, Map, GaodeMapV2} from '@antv/l7-maps'
+import {Scene} from "@antv/l7";
+import {Mapbox} from '@antv/l7-maps'
 import {IMapWrapper} from "@antv/l7-core";
 
-export default function initMap(mapRef:any, option:drawOptions = {}): Promise<Scene> {
+export default function initMap(mapRef: any, option: drawOptions = {}): Promise<Scene> {
     let scene = new Scene(
         {
             id: mapRef,
+            logoVisible: false,
             map: new Mapbox({
-                style: mapStyle(option),
-                zoom: option.zoom,
-                // @ts-ignore
-                center: option.center && option.center.length > 0 ? option.center : CONSTANT.center,
-                token: (option.token || CONSTANT.token),
-            })
+                    style: mapStyle(option),
+                    zoom: option.zoom,
+                    // @ts-ignore
+                    center: option.center && option.center.length > 0 ? option.center : CONSTANT.center,
+                    token: (option.token || CONSTANT.token),
+                },
+            )
         }
     )
     return new Promise((resolve, reject) => {
@@ -28,7 +30,7 @@ export default function initMap(mapRef:any, option:drawOptions = {}): Promise<Sc
  * @param center
  * @param zoom
  */
-export function flyTo(map: IMapWrapper, center:string = '', zoom: number): void {
+export function flyTo(map: IMapWrapper, center: string = '', zoom: number): void {
     let lnglat = center.split(',')
     // @ts-ignore
     map.flyTo({
@@ -42,7 +44,7 @@ export function flyTo(map: IMapWrapper, center:string = '', zoom: number): void 
  * @param option
  * @return {{sources: {"tianditu-mark": {tiles: ([string]|[string]), tileSize: number, type: string}, "tianditu-raster": {tiles: ([string]|[string]), tileSize: number, type: string}}, bearing: number, name: string, layers: [{layout: {}, paint: {"raster-opacity": number}, id: string, source: string, type: string},{layout: {}, paint: {"raster-opacity": number}, id: string, source: string, type: string}], pitch: number, version: number}}
  */
-function mapStyle(option:drawOptions = {}): any {
+function mapStyle(option: drawOptions = {}): any {
     return {
         "version": 8,
         "name": "tianditu-mapbox",
@@ -99,8 +101,8 @@ export interface drawOptions {
     // 瓦片标注地址
     tilesT?: string[] | string
     // 地图层级
-    zoom?:number
+    zoom?: number
     // 中心点
-    center?:[number,number]
+    center?: [number, number]
 
 }

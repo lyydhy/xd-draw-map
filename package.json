@@ -1,17 +1,14 @@
 {
   "name": "xd-draw-map",
-  "private": true,
-  "version": "0.0.1",
+  "private": false,
+  "version": "0.0.1-2",
   "main": "lib/packages/index.js",
   "module": "es/packages/index.js",
   "files": ["lib","es"],
   "typings": "lib/packages/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "build:components": "node --trace-warnings ./build/build.js",
-    "lib": "npm run build:components"
+    "build": "vue-tsc --noEmit && vite build"
   },
   "dependencies": {
     "@antv/l7": "^2.9.21",
